@@ -85,7 +85,7 @@
 			</target>
 			<target name="PSOptions" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>polyspace-configure</buildCommand>
-				<buildArguments>-allow-build-error -allow-overwrite -prog CIDemo -author PMATHAPA -output-options-file C:\My_Drive\Webinar_PS20\Options\PSOptions_PSA.opts make</buildArguments>
+				<buildArguments>-allow-build-error -allow-overwrite -prog CIDemo -author PMATHAPA -output-options-file C:\My_Drive\Webinar_PS20\Options\PSOptions_master.opts make</buildArguments>
 				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
