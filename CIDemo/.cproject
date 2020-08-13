@@ -35,10 +35,10 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.252130412" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.mingw.exe.debug.option.optimization.level.309999415" name="Optimization Level" superClass="gnu.c.compiler.mingw.exe.debug.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option defaultValue="gnu.c.debugging.level.max" id="gnu.c.compiler.mingw.exe.debug.option.debugging.level.1336090949" name="Debug Level" superClass="gnu.c.compiler.mingw.exe.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1547281702" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1547281702" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:\My_Drive\Webinar_PS20\LocalRepo\CIDemo\includes&quot;"/>
 								</option>
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.800137540" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.preprocessor.def.symbols.800137540" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEFINE_TYPES=1"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.879577447" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
@@ -85,7 +85,7 @@
 			</target>
 			<target name="PSOptions" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>polyspace-configure</buildCommand>
-				<buildArguments>-allow-build-error -allow-overwrite -prog CIDemo -author PMATHAPA -output-options-file C:\My_Drive\Webinar_PS20\Options\PSOptions_master.opts make</buildArguments>
+				<buildArguments>-allow-build-error -allow-overwrite -prog CIDemo -author PMATHAPA -output-options-file C:\My_Drive\Webinar_PS20\Options\PSOptions_PSA.opts make</buildArguments>
 				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
