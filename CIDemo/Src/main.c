@@ -9,7 +9,7 @@
 /* Internal function         */
 /* Needed for MISRA-rule 8.1 */
 static int interpolation(void);
-void main_lib(void);
+void main(void);
 
 
 static int interpolation(void)
@@ -30,7 +30,7 @@ static int interpolation(void)
 }
 
 
-void main_lib(void)
+void main(void)
 {
     int temp;
     PowerLevel = -10000;

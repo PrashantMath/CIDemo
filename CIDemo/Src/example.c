@@ -6,12 +6,8 @@
 #include <math.h>
 #include "include.h"
 
-/* polyspace:begin<MISRA-C3:D4.6:High:Fix>  Add a types.h file, create typedefs and replace inbuilt types  */
-/* polyspace:begin<MISRA-C:5.7:Not a defect:No Action planned> The reused names in this function actual seem to be appropriate uses of scoping */
-
-
 /* Internal function         */
-/* Needed for MISRA-rule 8.1 */
+
 static int get_oil_pressure(void);
 static void Close_To_Zero(void);
 static int Non_Infinite_Loop(void);
@@ -21,7 +17,6 @@ static void Recursion_caller(void);
 static void Square_Root_conv(double alpha, float* beta_pt);
 static void Square_Root(void);
 static void Unreachable_Code(void);
-/* polyspace<MISRA-C3:8.7:Low:Investigate> should have internal linkage! */
 extern int get_bus_status(void);
 
 
@@ -98,7 +93,7 @@ static void Pointer_Arithmetic(void)
 
     if (get_bus_status() > 0) {
         if (get_oil_pressure() > 0) {
-            *p = 5; /* Out of bounds */
+            *p = 5;
         } else {
             i++;
         }
@@ -106,11 +101,9 @@ static void Pointer_Arithmetic(void)
 
     i = get_bus_status();
 
-    /* polyspace<MISRA-C3:18.4:Not a defect:No action planned>Purpose is to show PolySpace can find pointer errors - pointers are often deemed necessary and code verification is the mitigation */
     if (i >= 0)  {*(p - i) = 10;}
 
     if ((0 < i) && (i <= 100)) {
-        /* polyspace<MISRA-C3:18.4:Not a defect:No action planned> Purpose is to show PolySpace can find pointer errors - pointers are often deemed necessary and code verification is the mitigation */
         p = p - i;
         *p = 5;     /* Safe pointer access */
     }
@@ -179,12 +172,11 @@ static void Square_Root(void)
 {
     double alpha = random_float();
     float beta;
-    /* polyspace<MISRA-C3:5.3:Not a defect:No Action planned> Gamma is the appropriate name */
     float gamma;
 
     Square_Root_conv(alpha, &beta);
 
-    gamma = (float)sqrt(beta - 0.75);   /* always sqrt(negative number) */
+    gamma = (float)sqrt(beta - 0.75);
 }
 
 
@@ -230,6 +222,4 @@ void RTE(void)
 
 }
 
-/* polyspace:end<MISRA-C:5.7:Not a defect:No Action planned> The reused names in this function actual seem to be appropriate uses of scoping */
 
-/* polyspace:end<MISRA-C3:D4.6:High:Fix>  Add a types.h file, create typedefs and replace inbuilt types  */
