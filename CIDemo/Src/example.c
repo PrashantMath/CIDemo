@@ -91,6 +91,7 @@ static void Pointer_Arithmetic(void)
         p++;
     }
 
+    p = array;
     if (get_bus_status() > 0) {
         if (get_oil_pressure() > 0) {
             *p = 5;
@@ -143,7 +144,7 @@ static void Recursion_caller(void)
 
 
     if ((x > -4) && (x < -1)) {
-        Recursion(&x);     // always encounters a division by zero
+        Recursion(&x);     // always encounters a division by zero /* polyspace RTE:NTC [To fix:Low] "Demo" */
     }
 
 
@@ -172,11 +173,12 @@ static void Square_Root(void)
 {
     double alpha = random_float();
     float beta;
-    float gamma;
+    float gamma = 0;
 
     Square_Root_conv(alpha, &beta);
 
-    gamma = (float)sqrt(beta - 0.75);
+    if(beta > 0.75)
+    	gamma = (float)sqrt(beta - 0.75);
 }
 
 

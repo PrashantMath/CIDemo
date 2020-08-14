@@ -18,7 +18,7 @@ static int interpolation(void)
     int found = false;
 
 
-    for (i = 0; i < MAX_SIZE; i++) {
+    for (i = 0; i < (MAX_SIZE-1); i++) {
         arr++;
         if ((found == false) && (*arr > 16)) {
             found = true;

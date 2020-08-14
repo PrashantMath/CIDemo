@@ -59,14 +59,16 @@ static s32 new_speed(s32 in, s8 ex_speed, u8 c_speed)
     return (in / 9 + ((s32)ex_speed + (s32)c_speed) / 2);
 }
 
-
-static char reset_temperature(u8 in_v3)
+static u8 reset_temperature(u8 in_v3)
 {
-    int array[255-(54 * BIN_v3)];
-
-    return array[in_v3-255] = 0;
+    u8 index;
+    s16 an_array[255-(54 * BIN_v3)];
+    index = in_v3;
+    if (index > (u8)38) {
+        index = (u8)38;
+    }
+    return (u8)(an_array[index] = 0);
 }
-
 
 s8 generic_validation(s8 extrapolated_speed, u8 computed_speed)
 {
@@ -83,52 +85,74 @@ s8 generic_validation(s8 extrapolated_speed, u8 computed_speed)
     s32 s32_ret;
     s16 v0_c;
     s8 s8_ret;
+    s8 answer;
 
     /*  sets all global variables to their functional range */
     functional_ranges();
 
-    v0_c = (s16) gVALUE(v0);
-    if (v0_c == 90) {
-        return (s8) NA_VALUE;
-        /* grey explanation
+    v0_c = (s16) v0 / 1024;
+    /* unreachable, so remove
+     * if (v0_c == 90)
+      {
+        answer = (s8) NA_VALUE;
+        / * grey explanation
          * when initialized, v0 is truncated to [ 0 ; 26624]
          * instead of [ 0 ; 92160 ] (92160 = 90 * BIN_v0)
          *
          * Note:
          *        90 * BIN_v0 = 90 * 1024 = 92160
          *        and  92160 MOD [ 0 ; 65535] = 26624
-         */
-    }
+         * to detect this bug earlier, use the
+         * -detect-unsigned-overflow option.
+         *
+      }
+    else */
+    {
+        /*create a function
+        if (v1 >= (60*BIN_v1))
+        {
+          output_v6 = (s32)((((s32)v2/32) * ((s32)v4/8)) / ((s32)v1/256));
+        }
+         else
+        {
+          output_v6 = (s32)((((s32)v3/4) * ((s32)v1/256)) - ((s32)v5/16));
+        }
+        */
+        output_v6 = new_speed1();
+        output_v7 = new_speed(output_v6, extrapolated_speed, computed_speed);
+        s32_ret = new_speed(output_v7, extrapolated_speed, computed_speed) / 2;
 
-    if (v1 >= 60 * BIN_v1) {
-        output_v6 = gVALUE(v2) * gVALUE(v4) / gVALUE(v1);
-    } else {
-        output_v6 = gVALUE(v3) * gVALUE(v1) - gVALUE(v5);
-    }
-    output_v7 = new_speed(output_v6, extrapolated_speed, computed_speed);
-    s32_ret = new_speed(output_v7, extrapolated_speed, computed_speed) / 2;
 
+        s8_ret = (s8) NA_VALUE;
+        /* the return value spec indicates that it should be between [ -50 ; 126 ] */
+        if ((s32_ret < -50) || (s32_ret >  126)) {
+            /* if dead code, we can remove this test
+             *   - gain in execution speed
+             *   - gain for the other developers who don't need to test the return
+             *     value against NA_VALUE (-128)
+             */
+            SEND_MESSAGE(s32_ret, "%d out of functional bounds reached");
+        } else {
+            if (s32_ret >= 0) {
+                s8_ret = (s8) s32_ret;
+                if ((s32)s8_ret > (127 - 15)) {
+                    output_v1 = 127; // we can saturate s8_ret here or constrain s32_ret above
+                } else {
+                    output_v1 = (s8)((s16)s8_ret + 15);
+                }
+            }
+        }
 
-    s8_ret = (s8) NA_VALUE;
-    /* the return value spec indicates that it should be between [ -50 ; 126 ] */
-    if ((s32_ret < -50) || (s32_ret >  126)) {
-        /* if dead code, we can remove this test
-         *   - gain in execution speed
-         *   - gain for the other developers who don't need to test the return
-         *     value against NA_VALUE (-128)
-         */
-        SEND_MESSAGE(s32_ret, "%d out of functional bounds reached");
-    } else {
-        s8_ret = (s8) s32_ret;
-        output_v1 = s8_ret + 15;
+        if ((output_v7 >= 0) && (output_v7 <= 126)) {
+            saved_values[output_v7] = (s16)s8_ret;
+            answer = s8_ret;
+        } else {
+            answer = (s8)reset_temperature(v3);
+        }
     }
-
-    if (output_v7 >= 0) {
-        saved_values[output_v7] = s8_ret;
-        return s8_ret;
-    }
-    return reset_temperature(v3);
+    return answer;
 }
+
 
 
 static s32 unused_fonction(void)

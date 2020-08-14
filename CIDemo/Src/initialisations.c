@@ -35,7 +35,8 @@ void partial_init(int* new_alt)
 
     if (read_bus_status()) {
         *new_alt = true;
-    }
+    }else
+    	*new_alt = false;
 }
 
 
@@ -73,7 +74,7 @@ int degree_computation(int a, int b, int c, int x)
 
 int polynomia(int input)
 {
-    int y, i;
+    int y = 0, i;
 
     for (i = 0; i <= input; i++) {
         y = degree_computation(1, -23, -15, i);
