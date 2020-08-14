@@ -5,6 +5,7 @@
 
 #include <math.h>
 #include "include.h"
+#include "Algo.h"
 
 /* Internal function         */
 
@@ -221,6 +222,7 @@ void RTE(void)
     }
 
     Unreachable_Code();
+    tmp = Algo(100, 200);
 
 }
 
