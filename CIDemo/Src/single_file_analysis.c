@@ -35,7 +35,7 @@ all_values(u16)
 /* Internal function         */
 /* Needed for MISRA-rule 8.1 */
 static s32 new_speed(s32 in, s8 ex_speed, u8 c_speed);
-static char reset_temperature(u8 in_v3);
+static u8 reset_temperature(u8 in_v3);
 static void functional_ranges(void);
 static s32 unused_fonction(void);
 
