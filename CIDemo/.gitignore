@@ -1,4 +1,11 @@
 /Debug/
 /Archives/
+/Binaries/
+*.exe
 test_driver.c
+test_main.c
+<<<<<<< HEAD
 
+=======
+test_main.c
+>>>>>>> refs/heads/Devel
